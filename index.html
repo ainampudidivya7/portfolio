@@ -1007,6 +1007,27 @@
         submitBtn.disabled = false;
       });
   });
+</
+  <script>
+(function() {
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyFGk9BQpq4_1wgvaabFTe8ztWhov80_3nZe7UnZO82l9B_56k3cXZRGYd9PyoMRLSD/exec";
+  const data = {
+    page: window.location.pathname,
+    referrer: document.referrer || "(direct)",
+    browser: (function() {
+      const ua = navigator.userAgent;
+      if (ua.includes("Chrome")) return "Chrome";
+      if (ua.includes("Firefox")) return "Firefox";
+      if (ua.includes("Safari")) return "Safari";
+      if (ua.includes("Edge")) return "Edge";
+      return "Other";
+    })(),
+    device: /Mobi|Android/i.test(navigator.userAgent) ? "Mobile" : "Desktop",
+    screen: window.screen.width + "x" + window.screen.height
+  };
+  const url = APPS_SCRIPT_URL + "?" + new URLSearchParams(data).toString();
+  fetch(url).catch(function() {});
+})();
 </script>
 </body>
 </html>
