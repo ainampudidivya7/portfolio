@@ -944,23 +944,24 @@
   function detectDevice() {
     return /Mobi|Android/i.test(navigator.userAgent) ? "Mobile" : "Desktop";
   }
-
   function logVisit() {
-    if (SHEET_ENDPOINT.includes("PASTE_YOUR")) return; // not configured yet
-    fetch(SHEET_ENDPOINT, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify({
-        type: "visit",
-        page: window.location.href,
-        referrer: document.referrer || "direct",
-        browser: detectBrowser(),
-        device: detectDevice(),
-        screen: `${window.screen.width}x${window.screen.height}`
-      })
-    }).catch(() => {});
-  }
+  if (SHEET_ENDPOINT.includes("PASTE_YOUR")) return; // not configured yet
+  fetch(SHEET_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain" },
+    body: JSON.stringify({
+      type: "visit",
+      page: window.location.href,
+      referrer: document.referrer || "direct",
+      browser: detectBrowser(),
+      device: detectDevice(),
+      screen: `${window.screen.width}x${window.screen.height}`
+    })
+  }).catch(() => {});
+}
+
+ 
 
   document.addEventListener("DOMContentLoaded", logVisit);
 
@@ -989,7 +990,7 @@
       message: document.getElementById("cf-message").value
     };
 
-    fetch(SHEET_ENDPOINT, {
+  fetch(SHEET_ENDPOINT, {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "text/plain" },
@@ -1003,10 +1004,6 @@
         statusEl.textContent = "Something went wrong. Please email directly.";
         statusEl.classList.add("error");
       })
-      .finally(() => {
-        submitBtn.disabled = false;
-      });
-  });
    .finally(() => {
         submitBtn.disabled = false;
       });
